@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Loader from "../assets/chatLoad.gif";
 export const Container = styled.div`
   padding-top: 1rem;
   display: grid;

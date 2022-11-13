@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const SearchedUsersContainer = styled.div`
+  z-index: 3;
   position: absolute;
   top: 2.8rem;
   background-color: black;
@@ -25,7 +26,7 @@ const SearchedUsersContainer = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
-    .loader{
+    .loader {
       width: 100%;
       height: 100%;
     }
@@ -39,7 +40,7 @@ const SearchedUsersContainer = styled.div`
       align-items: center;
       display: flex;
       transition: 0.3s ease-in-out;
-      :hover{
+      :hover {
         background-color: #9186f3;
       }
       .avatar {
@@ -62,7 +63,7 @@ const SearchedUsersContainer = styled.div`
         .searched-users-buttons {
           cursor: pointer;
           height: 2rem;
-          :hover{
+          :hover {
             background-color: black;
             border-radius: 40%;
             padding: 3px;

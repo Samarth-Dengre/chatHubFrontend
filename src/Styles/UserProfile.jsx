@@ -12,14 +12,16 @@ export const Container = styled.div`
     max-inline-size: 100%;
   }
   .upper-half {
-    width: 100vw;
+    width: auto;
     display: flex;
+    padding: 2rem;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border: 2px solid white;
+    gap: 1rem;
+    border: 2px solid #9186f3;
+    border-radius: 2rem;
     .avatar-image {
-      border: 1px solid white;
       display: flex;
       width: auto;
       height: auto;
@@ -43,20 +45,27 @@ export const Container = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border: 1px solid white;
       font-size: 1.5rem;
       gap: 0.6rem;
     }
   }
   .lower-half {
     width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .updating {
+      width: 10rem;
+      height: 10rem;
+    }
     .contact-details {
       display: flex;
+      width: 100vw;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: 0.5rem;
-      border: 1px solid white;
       padding: 1rem;
       p {
         display: flex;
@@ -72,12 +81,21 @@ export const Container = styled.div`
         }
       }
 
-      button{
+      button {
         width: 8rem;
+        height: 3rem;
+        font-size: 1rem;
         padding: 5px;
+        font-weight: bold;
         border-radius: 1rem;
         cursor: pointer;
         outline: none;
+        background-color: #9186f3;
+        transition: 0.5s ease-in-out;
+        :hover {
+          background-color: #4e0eff;
+          color: white;
+        }
       }
     }
   }

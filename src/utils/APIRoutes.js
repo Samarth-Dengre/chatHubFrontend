@@ -10,3 +10,4 @@ export const searchRoute = `${host}/api/auth/searchUsers`;
 export const addFriendRoute = `${host}/api/friend/addFriend`;
 export const getUserDetails = `${host}/api/auth/userDetails`;
 export const updateUserProfile = `${host}/api/auth/updateDetails`;
+export const updateAbout = `${host}/api/auth/updateAbout`;
