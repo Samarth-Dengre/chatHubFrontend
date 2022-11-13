@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SearchedUsersContainer from "../Styles/SearchedUsers";
 import { Person, Add } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";

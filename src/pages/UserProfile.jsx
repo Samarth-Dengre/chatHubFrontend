@@ -73,12 +73,12 @@ function UserProfile() {
         workEmail: workRef.current.value,
         linkedin: linkedInRef.current.value,
         github: githubRef.current.value,
-        twitter: githubRef.current.value,
+        twitter: twitterRef.current.value,
         id: loggedUser._id,
       });
 
       if (data.status === true) {
-        toast.success("UPDATED", toastOptions);
+        toast.success("UPDATED, Please refresh the page to view changes", toastOptions);
       } else {
         toast.error("Failed To Update", toastOptions);
       }

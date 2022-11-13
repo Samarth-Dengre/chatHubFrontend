@@ -11,13 +11,14 @@ const About = ({ user, loggedUser }) => {
   const [update, setUpdate] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const aboutRef = useRef();
+  
   const updateAboutHandler = async () => {
     setIsUpdating(true);
     const { data } = await axios.post(updateAbout, {
-      about: about,
+      about: aboutRef.current.value,
       id: loggedUser._id,
     });
-
+    console.log(data);
     if (data.status === true) {
       setAbout(data.about);
     } else {
@@ -29,7 +30,7 @@ const About = ({ user, loggedUser }) => {
   };
 
   const toggleUpdateButton = () => {
-    setUpdate(!update);
+    setUpdate(true);
   };
 
   return (
