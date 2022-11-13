@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Loader from "../assets/chatLoad.gif";
 export const Container = styled.div`
   padding-top: 1rem;
   display: grid;
@@ -58,7 +59,9 @@ export const Container = styled.div`
       }
     }
     .Loader {
-      max-inline-size: 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     .message {
       display: flex;

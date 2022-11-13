@@ -104,7 +104,7 @@ const MessagesContainer = (props) => {
             <img src={Loader} alt="Loading" className="Loader"></img>
           )}
         </div>
-        <ChatInput handleSendMessage={handleSendMessage} />
+        {!chatIsLoading && <ChatInput handleSendMessage={handleSendMessage} />}
       </Container>
     )
   );

@@ -25,6 +25,10 @@ const SearchedUsersContainer = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
+    .loader{
+      width: 100%;
+      height: 100%;
+    }
     .user {
       background-color: #ffffff39;
       height: 2.5rem;

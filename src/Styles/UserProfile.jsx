@@ -4,11 +4,14 @@ export const Container = styled.div`
   color: white;
   height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   .loader {
     max-inline-size: 100%;
   }
   .upper-half {
-    margin-top: 7rem;
     width: 100vw;
     display: flex;
     align-items: center;

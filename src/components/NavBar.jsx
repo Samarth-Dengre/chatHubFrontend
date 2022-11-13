@@ -13,6 +13,7 @@ const NavBar = () => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [value, setValue] = useState("");
   const [fetchedUsers, setFetchedUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const isAuth = useSelector((state) => state.user.isAuthenticated);
   const loggedUser = useSelector((state) => state.user.user);
@@ -32,10 +33,12 @@ const NavBar = () => {
     if (word.length !== 0) {
       setValue(word);
       setIsEmpty(false);
+      setLoading(true);
       const { data } = await axios.get(`${searchRoute}/${word}`);
       if (data.status === true) {
         setFetchedUsers(data.users);
       }
+      setLoading(false);
     } else {
       setValue("");
       setIsEmpty(true);
@@ -81,7 +84,7 @@ const NavBar = () => {
                     <Cancel id="cancel-button" className="search-buttons" />
                   </button>
                 )}
-                {!isEmpty && <SearchedUsers users={fetchedUsers} />}
+                {!isEmpty && <SearchedUsers users={fetchedUsers} loading={loading} />}
               </div>
               <Logout />
             </div>

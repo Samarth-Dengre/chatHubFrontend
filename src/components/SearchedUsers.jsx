@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchedUsersContainer from "../Styles/SearchedUsers";
 import { Person, Add } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +8,10 @@ import { addFriendRoute } from "../utils/APIRoutes";
 import { ToastContainer, toast } from "react-toastify";
 import { toastOptions } from "../assets/toastOptions";
 import "react-toastify/dist/ReactToastify.css";
-const SearchedUsers = ({ users }) => {
+import Loader from "../assets/chatLoad.gif";
+const SearchedUsers = ({ users, loading }) => {
   const navigate = useNavigate();
   const loggedUser = useSelector((state) => state.user.user);
-
   const viewProfile = (id) => {
     return () => {
       navigate(`/users/id=${id}`);
@@ -37,36 +37,40 @@ const SearchedUsers = ({ users }) => {
       <ToastContainer />
       <SearchedUsersContainer>
         <div className="users">
-          {users.length > 0 ? (
-            users.map((user, index) => {
-              return (
-                <div className="user" key={index}>
-                  <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${user.avatarImage}`}
-                      alt="avatar"
-                    ></img>
-                  </div>
-                  <div className="username">
-                    <h3>{user.username}</h3>
-                  </div>
-                  <div className="view-profile">
-                    <Person
-                      onClick={viewProfile(user._id)}
-                      className="searched-users-buttons"
-                    />
-                    {user._id !== loggedUser._id && (
-                      <Add
+          {!loading ? (
+            users.length > 0 ? (
+              users.map((user, index) => {
+                return (
+                  <div className="user" key={index}>
+                    <div className="avatar">
+                      <img
+                        src={`data:image/svg+xml;base64,${user.avatarImage}`}
+                        alt="avatar"
+                      ></img>
+                    </div>
+                    <div className="username">
+                      <h3>{user.username}</h3>
+                    </div>
+                    <div className="view-profile">
+                      <Person
+                        onClick={viewProfile(user._id)}
                         className="searched-users-buttons"
-                        onClick={addFriend(user._id)}
                       />
-                    )}
+                      {user._id !== loggedUser._id && (
+                        <Add
+                          className="searched-users-buttons"
+                          onClick={addFriend(user._id)}
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })
+                );
+              })
+            ) : (
+              <p>No user exists with this name</p>
+            )
           ) : (
-            <p>No user exists with this name</p>
+            <img className="loader" src={Loader} alt="Loading"></img>
           )}
         </div>
       </SearchedUsersContainer>

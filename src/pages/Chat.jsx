@@ -9,12 +9,14 @@ import MessagesContainer from "../components/Messages/MessagesContainer";
 import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 import NavBar from "../components/NavBar";
+import Loader from "../assets/loader.gif";
 const Chat = () => {
   const socket = useRef();
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [loading, setIsLoading] = useState(false);
 
   const isAuth = useSelector((state) => state.user.isAuthenticated);
   const user = useSelector((state) => state.user.user);
@@ -38,9 +40,10 @@ const Chat = () => {
 
   useEffect(() => {
     const fetchContacts = async () => {
+      setIsLoading(true);
       const data = await axios.get(`${allUsersRoute}/${user._id}`);
-      if(data.data.users !== null)
-        setContacts(data.data.users.friends);
+      if (data.data.users !== null) setContacts(data.data.users.friends);
+      setIsLoading(false);
     };
     if (user) {
       if (user.isAvatarImageSet) {
@@ -49,7 +52,7 @@ const Chat = () => {
         navigate("/setAvatar");
       }
     }
-  });
+  }, []);
 
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
@@ -59,21 +62,25 @@ const Chat = () => {
     <>
       <NavBar />
       <ChatContainer>
-        <div className="container">
-          <Contacts
-            contacts={contacts}
-            changeChat={handleChatChange}
-          ></Contacts>
-          {currentChat === undefined
-            ? isLoaded && <Welcome />
-            : isLoaded && (
-                <MessagesContainer
-                  currentChat={currentChat}
-                  currentUser={user}
-                  socket={socket}
-                />
-              )}
-        </div>
+        {!loading ? (
+          <div className="container">
+            <Contacts
+              contacts={contacts}
+              changeChat={handleChatChange}
+            ></Contacts>
+            {currentChat === undefined
+              ? isLoaded && <Welcome />
+              : isLoaded && (
+                  <MessagesContainer
+                    currentChat={currentChat}
+                    currentUser={user}
+                    socket={socket}
+                  />
+                )}
+          </div>
+        ) : (
+          <img src={Loader} alt="Loading"></img>
+        )}
       </ChatContainer>
     </>
   );
