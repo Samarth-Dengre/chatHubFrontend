@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Edit, Save } from "@mui/icons-material";
 import { Container } from "../../Styles/About";
 import { useRef } from "react";
@@ -11,6 +11,10 @@ const About = ({ user, loggedUser }) => {
   const [update, setUpdate] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const aboutRef = useRef();
+
+  useEffect(() => {
+    setAbout(user.about);
+  }, [user]);
   
   const updateAboutHandler = async () => {
     setIsUpdating(true);
