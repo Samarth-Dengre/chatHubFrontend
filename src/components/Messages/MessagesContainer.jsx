@@ -84,7 +84,7 @@ const MessagesContainer = (props) => {
           </button>
         </div>
         <div className="chat-messages">
-          {chatIsLoading ? (
+          {!chatIsLoading ? (
             messages.map((message, index) => {
               return (
                 <div ref={scrollRef} key={index}>
