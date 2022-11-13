@@ -58,7 +58,7 @@ export const Container = styled.div`
       }
     }
     .Loader {
-      width: fit-content;
+      max-inline-size: 100%;
     }
     .message {
       display: flex;
