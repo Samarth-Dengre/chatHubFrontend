@@ -1,22 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "../../Styles/MessagesContainer";
 import ChatInput from "../Chat/ChatInput";
 import axios from "axios";
 import { getAllMessagesRoute, sendMessageRoute } from "../../utils/APIRoutes";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../assets/chatLoad.gif";
 const MessagesContainer = (props) => {
   const { currentChat, currentUser, socket } = props;
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [chatIsLoading, setChatIsLoading] = useState(false);
   const scrollRef = useRef();
   const navigate = useNavigate();
   useEffect(() => {
+    setChatIsLoading(true);
     const fetchChat = async () => {
       const response = await axios.post(getAllMessagesRoute, {
         from: currentUser._id,
         to: currentChat._id,
       });
       setMessages(response.data);
+      setChatIsLoading(false);
     };
     fetchChat();
   }, [currentChat._id, currentUser._id]);
@@ -45,9 +49,11 @@ const MessagesContainer = (props) => {
       });
     }
   }, [socket]);
+
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
   }, [messages]);
@@ -78,21 +84,25 @@ const MessagesContainer = (props) => {
           </button>
         </div>
         <div className="chat-messages">
-          {messages.map((message, index) => {
-            return (
-              <div ref={scrollRef} key={index}>
-                <div
-                  className={`message ${
-                    message.fromSelf ? "sent" : "recieved"
-                  }`}
-                >
-                  <div className="content">
-                    <p>{message.message}</p>
+          {chatIsLoading ? (
+            messages.map((message, index) => {
+              return (
+                <div ref={scrollRef} key={index}>
+                  <div
+                    className={`message ${
+                      message.fromSelf ? "sent" : "recieved"
+                    }`}
+                  >
+                    <div className="content">
+                      <p>{message.message}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <img src={Loader} alt="Loading" className="Loader"></img>
+          )}
         </div>
         <ChatInput handleSendMessage={handleSendMessage} />
       </Container>

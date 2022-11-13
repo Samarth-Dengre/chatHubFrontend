@@ -49,6 +49,7 @@ export const Container = styled.div`
     display: flex;
     gap: 1rem;
     overflow: auto;
+    flex-direction: column;
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
@@ -56,7 +57,9 @@ export const Container = styled.div`
         width: 0.1rem;
       }
     }
-    flex-direction: column;
+    .Loader {
+      width: 100%;
+    }
     .message {
       display: flex;
       align-items: center;
