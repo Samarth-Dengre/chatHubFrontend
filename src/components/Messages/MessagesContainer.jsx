@@ -44,7 +44,6 @@ const MessagesContainer = (props) => {
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
-        if (currentChat._id === msg.from)
           setArrivalMessage({ fromSelf: false, message: msg.msg });
       });
     }
