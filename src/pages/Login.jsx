@@ -11,12 +11,14 @@ import Input from "../assets/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/user-slice";
 import NavBar from "../components/NavBar";
+import ThreeDots from "../assets/ThreeDots";
 
 export default function Login() {
   const [values, setValues] = useState({
     username: "",
     password: "",
   });
+  const [loggingIn, setLoggingIn] = useState(false);
 
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.user.isAuthenticated);
@@ -32,6 +34,7 @@ export default function Login() {
   const submitHandler = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
+      setLoggingIn(true);
       const { password, username } = values;
       const { data } = await axios.post(loginRoute, {
         username,
@@ -40,7 +43,7 @@ export default function Login() {
 
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
-        console.log(data.error);
+        setLoggingIn(false);
         return;
       }
       if (data.status === true) {
@@ -50,6 +53,7 @@ export default function Login() {
             isAuthenticated: true,
           })
         );
+        setLoggingIn(false);
         navigate("/");
       }
     }
@@ -77,7 +81,7 @@ export default function Login() {
 
   return (
     <React.Fragment>
-      <NavBar/>
+      <NavBar />
       <FormContainer>
         <form onSubmit={submitHandler}>
           <div className="brand">
@@ -96,7 +100,9 @@ export default function Login() {
             name="password"
             onChange={(e) => handleChange(e)}
           />
-          <button type="submit">Login</button>
+          <button type="submit">
+            {!loggingIn ? <p>Login</p> : <ThreeDots />}
+          </button>
           <span>
             Don't have an account ? <NavLink to="/register">Register</NavLink>
           </span>

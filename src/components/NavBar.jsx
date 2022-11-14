@@ -21,6 +21,9 @@ const NavBar = () => {
   const navigateToHomeHandler = () => {
     navigate("/");
   };
+  const navigateToLanginghandler = () => {
+    navigate('/chatHub');
+  }
   const setAvatarClickHandler = () => {
     navigate("/setAvatar");
   };
@@ -54,8 +57,8 @@ const NavBar = () => {
     <Fragment>
       <NavBarContainer>
         <div className="brand">
-          <img onClick={navigateToHomeHandler} src={Logo} alt="LOGO"></img>
-          <h1 onClick={navigateToHomeHandler}>ChatHUB</h1>
+          <img onClick={navigateToLanginghandler} src={Logo} alt="LOGO"></img>
+          <h1 onClick={navigateToLanginghandler}>ChatHUB</h1>
         </div>
         {isAuth && (
           <>

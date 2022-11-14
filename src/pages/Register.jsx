@@ -11,7 +11,7 @@ import Input from "../assets/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/user-slice";
 import NavBar from "../components/NavBar";
-
+import ThreeDots from "../assets/ThreeDots";
 export default function Register() {
   const [values, setValues] = useState({
     username: "",
@@ -19,6 +19,8 @@ export default function Register() {
     password: "",
     confirmPassword: "",
   });
+
+  const [registering, setRegestering] = useState(false);
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,13 +33,14 @@ export default function Register() {
   const submitHandler = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
+      setRegestering(true);
       const { password, username, email } = values;
       const { data } = await axios.post(registerRoute, {
         username,
         email,
         password,
       });
-
+      setRegestering(false);
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
         return;
@@ -111,7 +114,7 @@ export default function Register() {
             name="confirmPassword"
             onChange={(e) => handleChange(e)}
           />
-          <button type="submit">Create User</button>
+          <button type="submit">{!registering ? <p>Create User</p> : <ThreeDots/>}</button>
           <span>
             Already have an account ? <NavLink to="/login">Login</NavLink>
           </span>

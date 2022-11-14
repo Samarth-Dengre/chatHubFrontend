@@ -30,6 +30,11 @@ const FormContainer = styled.div`
     border: 2rem;
     padding: 3rem 5rem;
     border-radius: 2rem;
+
+    .logging-in{
+      height: 3rem;
+    }
+
     input {
       background-color: transparent;
       padding: 1rem;
@@ -45,6 +50,7 @@ const FormContainer = styled.div`
     button {
       background-color: #997af0;
       color: white;
+      height: 3.3rem;
       padding: 1rem 2rem;
       border: none;
       font-weight: bold;

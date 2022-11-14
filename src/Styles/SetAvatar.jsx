@@ -38,6 +38,8 @@ export const AvatarContainer = styled.div`
   }
   .Submit-btn {
     background-color: #997af0;
+    width: 18rem;
+    height: 3.3rem;
     color: white;
     padding: 1rem 2rem;
     border: none;

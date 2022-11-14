@@ -9,12 +9,15 @@ export const Container = styled.div`
   padding: 0.5rem;
   border-radius: 1rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
   word-break: break-all;
   @media screen and (min-width: 720px) and (max-width: 1000px) {
     width: 98%;
   }
   .content {
     width: 95%;
+    max-height: 6rem;
     overflow: scroll;
     &::-webkit-scrollbar {
       display: none;
@@ -27,7 +30,7 @@ export const Container = styled.div`
       resize: none;
       padding: 8px;
       border-radius: 1rem;
-      max-height: 5rem;
+      max-height: 6rem;
       overflow: scroll;
       &::-webkit-scrollbar {
         display: none;

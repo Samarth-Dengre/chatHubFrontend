@@ -7,7 +7,6 @@ import {
   updateUserProfile,
 } from "../utils/APIRoutes";
 import Loader from "../assets/loader.gif";
-import Update from "../assets/update.gif";
 import { Container } from "../Styles/UserProfile";
 import NavBar from "../components/NavBar";
 import { useSelector } from "react-redux";
@@ -17,6 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRef } from "react";
 import About from "../components/UserProfile/About";
 import UpperHalf from "../components/UserProfile/UpperHalf";
+import ThreeDots from "../assets/ThreeDots";
+
 function UserProfile() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,6 +30,8 @@ function UserProfile() {
   const githubRef = useRef();
   const twitterRef = useRef();
   const [isUpdating, setIsUpdating] = useState(false);
+  const [sendingRequest, setSendingRequest] = useState(false);
+
   const changeAvatarHandler = () => {
     navigate("/setAvatar");
   };
@@ -48,10 +51,11 @@ function UserProfile() {
 
   const addFriendHandler = (id) => {
     return async () => {
+      setSendingRequest(true);
       const { data } = await axios.get(
         `${addFriendRoute}/?fromId=${loggedUser._id}&toId=${id}`
       );
-
+      setSendingRequest(false);
       if (data.status === true) {
         toast.success(`New Friend Added`, toastOptions);
       } else if (data.status === false && data.isFriend === true) {
@@ -78,7 +82,10 @@ function UserProfile() {
       });
 
       if (data.status === true) {
-        toast.success("UPDATED, Please refresh the page to view changes", toastOptions);
+        toast.success(
+          "UPDATED, Please refresh the page to view changes",
+          toastOptions
+        );
       } else {
         toast.error("Failed To Update", toastOptions);
       }
@@ -104,7 +111,7 @@ function UserProfile() {
               loggedUser={loggedUser}
             />
 
-            <About user={user} loggedUser={loggedUser}/>
+            <About user={user} loggedUser={loggedUser} />
 
             <div className="lower-half">
               {!isUpdating ? (
@@ -168,7 +175,11 @@ function UserProfile() {
                     </p>
                     {loggedUser._id !== user._id && (
                       <button onClick={addFriendHandler(user._id)}>
-                        Add Friend
+                        {sendingRequest ? (
+                          <ThreeDots />
+                        ) : (
+                          <span>Add Friend</span>
+                        )}
                       </button>
                     )}
                     {loggedUser._id === user._id &&
@@ -182,7 +193,7 @@ function UserProfile() {
                   </div>
                 </form>
               ) : (
-                <img className="updating" src={Update} alt="Updating"></img>
+                <ThreeDots />
               )}
             </div>
           </Container>

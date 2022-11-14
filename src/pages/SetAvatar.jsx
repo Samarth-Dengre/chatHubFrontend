@@ -10,14 +10,16 @@ import { toastOptions } from "../assets/toastOptions";
 import { Buffer } from "buffer";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/user-slice";
+import ThreeDots from "../assets/ThreeDots";
 export default function SetAvatar() {
   const api = "https://api.multiavatar.com/45678945";
   const [avatars, setAvatar] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSetting, setIsSetting] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
   const navigate = useNavigate();
 
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.user.user);
   const isAuth = useSelector((state) => state.user.isAuthenticated);
   const dispatch = useDispatch();
 
@@ -50,9 +52,11 @@ export default function SetAvatar() {
     if (selectedAvatar === undefined) {
       toast.error("Please select an avatar", toastOptions);
     } else {
+      setIsSetting(true);
       const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
         image: avatars[selectedAvatar],
       });
+      setIsSetting(false);
       if (data.isSet) {
         dispatch(
           userActions.setUser({
@@ -96,7 +100,7 @@ export default function SetAvatar() {
             })}
           </div>
           <button className="Submit-btn" onClick={setProfilePic}>
-            Set as Profile Picture
+            {isSetting ? <ThreeDots /> : <span> Set as Profile Picture</span>}
           </button>
         </AvatarContainer>
       )}

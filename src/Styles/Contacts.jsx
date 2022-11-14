@@ -4,6 +4,7 @@ export const Contacts = styled.div`
   grid-template-rows: 10% 75% 15%;
   background-color: #080420;
   overflow: hidden;
+  color: white;
   .brand {
     display: flex;
     align-items: center;

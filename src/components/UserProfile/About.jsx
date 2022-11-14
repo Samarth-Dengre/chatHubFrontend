@@ -6,6 +6,7 @@ import axios from "axios";
 import { updateAbout } from "../../utils/APIRoutes";
 import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../../assets/toastOptions";
+import ThreeDots from "../../assets/ThreeDots";
 const About = ({ user, loggedUser }) => {
   const [about, setAbout] = useState(user.about);
   const [update, setUpdate] = useState(false);
@@ -15,14 +16,13 @@ const About = ({ user, loggedUser }) => {
   useEffect(() => {
     setAbout(user.about);
   }, [user]);
-  
+
   const updateAboutHandler = async () => {
     setIsUpdating(true);
     const { data } = await axios.post(updateAbout, {
       about: aboutRef.current.value,
       id: loggedUser._id,
     });
-    console.log(data);
     if (data.status === true) {
       setAbout(data.about);
     } else {
@@ -67,7 +67,7 @@ const About = ({ user, loggedUser }) => {
             )}
           </>
         ) : (
-          <p>Updating</p>
+          <ThreeDots />
         )}
       </Container>
     </>
