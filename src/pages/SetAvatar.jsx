@@ -11,6 +11,7 @@ import { Buffer } from "buffer";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/user-slice";
 import ThreeDots from "../assets/ThreeDots";
+import { Helmet } from "react-helmet";
 export default function SetAvatar() {
   const api = "https://api.multiavatar.com/45678945";
   const [avatars, setAvatar] = useState([]);
@@ -72,6 +73,9 @@ export default function SetAvatar() {
   };
   return (
     <>
+    <Helmet>
+      <title>ChatHub | Avatar</title>
+    </Helmet>
       {isLoading ? (
         <AvatarContainer>
           <img src={Loader} alt={Loader} className="loader"></img>

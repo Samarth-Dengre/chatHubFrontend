@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/user-slice";
 import NavBar from "../components/NavBar";
 import ThreeDots from "../assets/ThreeDots";
+import { Helmet } from "react-helmet";
 
 export default function Login() {
   const [values, setValues] = useState({
@@ -81,6 +82,11 @@ export default function Login() {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>
+          ChatHub | Login
+        </title>
+      </Helmet>
       <NavBar />
       <FormContainer>
         <form onSubmit={submitHandler}>

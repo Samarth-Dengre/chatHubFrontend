@@ -7,7 +7,7 @@ import github from "../assets/github.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getTotalUsers } from "../utils/APIRoutes";
-
+import { Helmet } from "react-helmet";
 const LandingPage = () => {
 
   const [totalUsers, setTotalUsers] = useState(0);
@@ -34,6 +34,10 @@ const LandingPage = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>ChatHub | Home</title>
+    </Helmet>
     <Container>
       <nav>
         <div className="brand">
@@ -74,6 +78,7 @@ const LandingPage = () => {
         </div>
       </footer>
     </Container>
+    </>
   );
 };
 

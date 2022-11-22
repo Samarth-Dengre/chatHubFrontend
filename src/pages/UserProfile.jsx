@@ -17,6 +17,7 @@ import { useRef } from "react";
 import About from "../components/UserProfile/About";
 import UpperHalf from "../components/UserProfile/UpperHalf";
 import ThreeDots from "../assets/ThreeDots";
+import { Helmet } from "react-helmet";
 
 function UserProfile() {
   const [user, setUser] = useState(null);
@@ -96,6 +97,9 @@ function UserProfile() {
 
   return (
     <>
+    <Helmet>
+      <title>ChatHub | Profile</title>
+    </Helmet>
       <ToastContainer />
       <NavBar />
       {isLoading ? (

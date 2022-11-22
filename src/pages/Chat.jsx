@@ -10,6 +10,7 @@ import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 import NavBar from "../components/NavBar";
 import Loader from "../assets/loader.gif";
+import {Helmet} from 'react-helmet';
 const Chat = () => {
   const socket = useRef();
   const navigate = useNavigate();
@@ -60,6 +61,9 @@ const Chat = () => {
 
   return (
     <>
+    <Helmet>
+      <title>ChatHub</title>
+    </Helmet>
       <NavBar />
       <ChatContainer>
         {!loading ? (
