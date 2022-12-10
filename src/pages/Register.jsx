@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/user-slice";
 import ThreeDots from "../assets/ThreeDots";
 import { Helmet } from "react-helmet";
-import HerokuError from "../components/HerokuError";
 export default function Register() {
   const [values, setValues] = useState({
     username: "",
@@ -88,7 +87,6 @@ export default function Register() {
         <title>ChatHub | Register</title>
       </Helmet>
       <FormContainer>
-      <HerokuError/>
         <form onSubmit={submitHandler}>
           <div className="brand">
             <img src={Logo} alt="LOGO"></img>

@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/user-slice";
 import ThreeDots from "../assets/ThreeDots";
 import { Helmet } from "react-helmet";
-import HerokuError from "../components/HerokuError";
 
 export default function Login() {
   const [values, setValues] = useState({
@@ -86,7 +85,6 @@ export default function Login() {
         <title>ChatHub | Login</title>
       </Helmet>
       <FormContainer>
-        <HerokuError />
         <form onSubmit={submitHandler}>
           <div className="brand">
             <img src={Logo} alt="LOGO"></img>
