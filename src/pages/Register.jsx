@@ -13,6 +13,7 @@ import { userActions } from "../store/user-slice";
 import NavBar from "../components/NavBar";
 import ThreeDots from "../assets/ThreeDots";
 import { Helmet } from "react-helmet";
+import HerokuError from "../components/HerokuError";
 export default function Register() {
   const [values, setValues] = useState({
     username: "",
@@ -87,8 +88,8 @@ export default function Register() {
       <Helmet>
         <title>ChatHub | Register</title>
       </Helmet>
-      <NavBar/>
       <FormContainer>
+      <HerokuError/>
         <form onSubmit={submitHandler}>
           <div className="brand">
             <img src={Logo} alt="LOGO"></img>
