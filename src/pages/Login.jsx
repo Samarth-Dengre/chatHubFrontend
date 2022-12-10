@@ -10,7 +10,6 @@ import { loginRoute } from "../utils/APIRoutes";
 import Input from "../assets/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/user-slice";
-import NavBar from "../components/NavBar";
 import ThreeDots from "../assets/ThreeDots";
 import { Helmet } from "react-helmet";
 import HerokuError from "../components/HerokuError";
