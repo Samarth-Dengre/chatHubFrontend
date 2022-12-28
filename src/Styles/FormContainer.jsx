@@ -30,8 +30,7 @@ const FormContainer = styled.div`
     border: 2rem;
     padding: 3rem 5rem;
     border-radius: 2rem;
-
-    .logging-in{
+    .logging-in {
       height: 3rem;
     }
 

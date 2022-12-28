@@ -13,4 +13,5 @@ export const getUserDetails = `${host}/api/auth/userDetails`;
 export const updateUserProfile = `${host}/api/auth/updateDetails`;
 export const updateAbout = `${host}/api/auth/updateAbout`;
 export const verifyEmailForRegistration = `${host}/api/auth/verifyEmailForRegistration`;
+export const verifyEmailForResetPassword = `${host}/api/auth/verifyEmailForResetPassword`;
 export const resetPassword = `${host}/api/auth/resetPassword`;
