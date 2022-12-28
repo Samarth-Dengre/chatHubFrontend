@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 import SetAvatar from "./pages/SetAvatar";
 import UserProfile from "./pages/UserProfile";
+import ForgotPassword from "./pages/Forgot-Password";
 function App() {
   return (
     <>
@@ -14,7 +15,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/setAvatar" element={<SetAvatar />} />
           <Route path="/*" element={<Chat />} />
-          <Route path="/users/id=:id" element={<UserProfile/>} />
+          <Route path="/users/id=:id" element={<UserProfile />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -10,14 +10,14 @@ import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 import NavBar from "../components/NavBar";
 import Loader from "../assets/loader.gif";
-import {Helmet} from 'react-helmet';
+import { Helmet } from "react-helmet";
 const Chat = () => {
   const socket = useRef();
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [loading, setIsLoading] = useState(false);
+  const [loading, setIsLoading] = useState(true);
 
   const isAuth = useSelector((state) => state.user.isAuthenticated);
   const user = useSelector((state) => state.user.user);
@@ -59,11 +59,11 @@ const Chat = () => {
     setCurrentChat(chat);
   };
 
-  return (
+  return !loading ? (
     <>
-    <Helmet>
-      <title>ChatHub</title>
-    </Helmet>
+      <Helmet>
+        <title>ChatHub</title>
+      </Helmet>
       <NavBar />
       <ChatContainer>
         {!loading ? (
@@ -87,6 +87,18 @@ const Chat = () => {
         )}
       </ChatContainer>
     </>
+  ) : (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        width: "100vw",
+      }}
+    >
+      <img src={Loader} alt="Loading"></img>
+    </div>
   );
 };
 
