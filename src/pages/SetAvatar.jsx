@@ -73,9 +73,9 @@ export default function SetAvatar() {
   };
   return (
     <>
-    <Helmet>
-      <title>ChatHub | Avatar</title>
-    </Helmet>
+      <Helmet>
+        <title>ChatHub | Avatar</title>
+      </Helmet>
       {isLoading ? (
         <AvatarContainer>
           <img src={Loader} alt={Loader} className="loader"></img>
@@ -103,9 +103,14 @@ export default function SetAvatar() {
               );
             })}
           </div>
-          <button className="Submit-btn" onClick={setProfilePic}>
-            {isSetting ? <ThreeDots /> : <span> Set as Profile Picture</span>}
-          </button>
+          <div>
+            <button className="Submit-btn" onClick={setProfilePic}>
+              {isSetting ? <ThreeDots /> : <span> Set as Profile Picture</span>}
+            </button>
+            <button className="Cancel-btn" onClick={() => navigate("/")}>
+              Cancel
+            </button>
+          </div>
         </AvatarContainer>
       )}
       <ToastContainer />

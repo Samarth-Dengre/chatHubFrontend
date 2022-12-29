@@ -48,7 +48,26 @@ export const AvatarContainer = styled.div`
     border-radius: 0.4rem;
     font-size: 1rem;
     text-transform: uppercase;
-    transition: 0.5s ease-in-out;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      background-color: #4e0eff;
+    }
+  }
+
+  .Cancel-btn {
+    margin-left: 1rem;
+    background-color: #21216d;
+    width: 12rem;
+    height: 3.3rem;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: 0.3s ease-in-out;
     &:hover {
       background-color: #4e0eff;
     }

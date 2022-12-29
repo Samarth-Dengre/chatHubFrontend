@@ -109,9 +109,6 @@ export default function Login() {
             Don't have an account ? <NavLink to="/register">Register</NavLink>
           </span>
           <span style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
             fontSize: "0.9rem",
           }}>
             <NavLink to="/forgotPassword">Forgot Password ? </NavLink>

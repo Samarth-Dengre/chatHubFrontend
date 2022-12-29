@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Contacts as ContactsContainer } from "../../Styles/Contacts";
 import logo from "../../assets/logo.svg";
 import Contact from "./Contact";

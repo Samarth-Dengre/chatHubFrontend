@@ -69,7 +69,7 @@ const NavBar = () => {
                 className="set-new-avatar"
                 onClick={setAvatarClickHandler}
               >
-                Change Avatar
+                AVATAR
               </button>
             </div>
             <div className="right-links-and-buttons">

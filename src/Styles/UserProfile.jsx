@@ -99,4 +99,21 @@ export const Container = styled.div`
       }
     }
   }
+  .deleteAccount {
+    color: white;
+    background-color: #e33636;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    margin-bottom: -2rem;
+    margin-top: 1rem;
+    transition: 0.2s ease-in-out;
+    :hover {
+      background-color: red;
+    }
+  }
 `;

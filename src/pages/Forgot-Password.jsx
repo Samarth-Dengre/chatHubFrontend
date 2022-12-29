@@ -76,6 +76,12 @@ const ForgotPassword = () => {
           }
           setCodeId("");
           setCodeSent(false);
+          setValues({
+            code: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
         }
       }
     } catch (error) {

@@ -5,6 +5,9 @@ import axios from "axios";
 import { getAllMessagesRoute, sendMessageRoute } from "../../utils/APIRoutes";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../assets/chatLoad.gif";
+import { ToastContainer, toast } from "react-toastify";
+import { toastOptions } from "../../assets/toastOptions";
+
 const MessagesContainer = (props) => {
   const { currentChat, currentUser, socket } = props;
   const [messages, setMessages] = useState([]);
@@ -23,38 +26,49 @@ const MessagesContainer = (props) => {
       setChatIsLoading(false);
     };
     fetchChat();
-  }, [currentChat._id, currentUser._id]);
+  }, [currentChat._id]);
 
   const handleSendMessage = async (msg) => {
-    await axios.post(sendMessageRoute, {
+    const msgs = [...messages];
+    msgs.push({ fromSelf: true, message: msg });
+    setMessages(msgs);
+    const { data } = await axios.post(sendMessageRoute, {
       from: currentUser._id,
       to: currentChat._id,
       message: msg,
     });
+
+    if (!data.status) {
+      toast.error(data.msg, toastOptions);
+    }
+
     socket.current.emit("send-msg", {
       to: currentChat._id,
       from: currentUser._id,
       message: msg,
     });
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
-    setMessages(msgs);
   };
 
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
-        console.log((msg.from === currentChat._id));
-        console.log(msg.from, currentChat._id, currentUser._id);
-        if (msg.from === currentChat._id)
-          setArrivalMessage({ fromSelf: false, message: msg.msg });
+        if (msg.from === currentChat._id) {
+          setArrivalMessage({
+            fromSelf: false,
+            message: msg.msg,
+            from: msg.from,
+          });
+        }
       });
     }
-  }, [socket]);
+  }, [socket, currentChat._id]);
 
   useEffect(() => {
-    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage]);
+    if (arrivalMessage !== null && arrivalMessage.from === currentChat._id) {
+      setMessages((prev) => [...prev, arrivalMessage]);
+      setArrivalMessage(null);
+    }
+  }, [arrivalMessage, currentChat._id]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
@@ -68,46 +82,51 @@ const MessagesContainer = (props) => {
 
   return (
     currentChat && (
-      <Container>
-        <div className="chat-header">
-          <div className="user-details">
-            <div className="avatar">
-              <img
-                src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-                alt="avatar"
-              ></img>
+      <>
+        <Container>
+          <div className="chat-header">
+            <div className="user-details">
+              <div className="avatar">
+                <img
+                  src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+                  alt="avatar"
+                ></img>
+              </div>
+              <div className="username">
+                <h3>{currentChat.username}</h3>
+              </div>
             </div>
-            <div className="username">
-              <h3>{currentChat.username}</h3>
-            </div>
+            <button onClick={viewSelectedUserProfile(currentChat._id)}>
+              View Profile
+            </button>
           </div>
-          <button onClick={viewSelectedUserProfile(currentChat._id)}>
-            View Profile
-          </button>
-        </div>
-        <div className="chat-messages">
-          {!chatIsLoading ? (
-            messages.map((message, index) => {
-              return (
-                <div ref={scrollRef} key={index}>
-                  <div
-                    className={`message ${
-                      message.fromSelf ? "sent" : "recieved"
-                    }`}
-                  >
-                    <div className="content">
-                      <p>{message.message}</p>
+          <div className="chat-messages">
+            {!chatIsLoading ? (
+              messages.map((message, index) => {
+                return (
+                  <div ref={scrollRef} key={index}>
+                    <div
+                      className={`message ${
+                        message.fromSelf ? "sent" : "recieved"
+                      }`}
+                    >
+                      <div className="content">
+                        <p>{message.message}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          ) : (
-            <img src={Loader} alt="Loading" className="Loader"></img>
+                );
+              })
+            ) : (
+              <img src={Loader} alt="Loading" className="Loader"></img>
+            )}
+          </div>
+          {!chatIsLoading && (
+            <ChatInput handleSendMessage={handleSendMessage} />
           )}
-        </div>
-        {!chatIsLoading && <ChatInput handleSendMessage={handleSendMessage} />}
-      </Container>
+          <ToastContainer />
+        </Container>
+      </>
     )
   );
 };

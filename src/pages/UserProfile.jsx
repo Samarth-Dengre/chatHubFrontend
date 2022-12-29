@@ -18,8 +18,13 @@ import About from "../components/UserProfile/About";
 import UpperHalf from "../components/UserProfile/UpperHalf";
 import ThreeDots from "../assets/ThreeDots";
 import { Helmet } from "react-helmet";
+import {DeleteForever} from '@mui/icons-material';
+import { deleteAccount } from "../utils/APIRoutes";
+import { useDispatch } from "react-redux";
+import { userActions } from "../store/user-slice";
 
 function UserProfile() {
+  const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
@@ -95,11 +100,28 @@ function UserProfile() {
     setEnableInputFields(false);
   };
 
+  const deleteAccounthandler = async() => {
+    const {data} = await axios.delete(`${deleteAccount}/${loggedUser._id}`);
+    if(data.status === true){
+      toast.success("Account Deleted", toastOptions);
+      localStorage.clear();
+      dispatch(
+        userActions.setUser({
+          user: null,
+          isAuthenticated: false,
+        })
+      );
+      navigate("/login");
+    }else{
+      toast.error("Failed To Delete Account", toastOptions);
+    }
+  };
+
   return (
     <>
-    <Helmet>
-      <title>ChatHub | Profile</title>
-    </Helmet>
+      <Helmet>
+        <title>ChatHub | Profile</title>
+      </Helmet>
       <ToastContainer />
       <NavBar />
       {isLoading ? (
@@ -200,6 +222,9 @@ function UserProfile() {
                 <ThreeDots />
               )}
             </div>
+            <button className="deleteAccount" onClick={deleteAccounthandler}>
+              Delete Account <DeleteForever />
+            </button>
           </Container>
         </>
       )}

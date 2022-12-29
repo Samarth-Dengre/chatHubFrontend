@@ -1,5 +1,5 @@
-// export const host = "http://localhost:5000";
-export const host = 'https://chathub-backend.onrender.com';
+export const host = "http://localhost:5000";
+// export const host = 'https://chathub-backend.onrender.com';
 export const registerRoute = `${host}/api/auth/register`;
 export const loginRoute = `${host}/api/auth/login`;
 export const setAvatarRoute = `${host}/api/auth/setAvatar`;
@@ -15,3 +15,4 @@ export const updateAbout = `${host}/api/auth/updateAbout`;
 export const verifyEmailForRegistration = `${host}/api/auth/verifyEmailForRegistration`;
 export const verifyEmailForResetPassword = `${host}/api/auth/verifyEmailForResetPassword`;
 export const resetPassword = `${host}/api/auth/resetPassword`;
+export const deleteAccount = `${host}/api/auth/deleteAccount`;

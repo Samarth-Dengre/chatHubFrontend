@@ -40,11 +40,14 @@ export default function Register() {
         const { password, username, email, code } = values;
         setMailSent(true);
         if (!mailSent) {
-          const emailVerification = await axios.post(verifyEmailForRegistration, {
-            email,
-            username,
-          });
-          if (emailVerification.data.status === 400) {
+          const emailVerification = await axios.post(
+            verifyEmailForRegistration,
+            {
+              email,
+              username,
+            }
+          );
+          if (!emailVerification.data.status) {
             toast.error(emailVerification.data.msg, toastOptions);
             return;
           } else {
