@@ -11,6 +11,9 @@ import { useSelector } from "react-redux";
 import NavBar from "../components/NavBar";
 import Loader from "../assets/loader.gif";
 import { Helmet } from "react-helmet";
+import { userActions } from "../store/user-slice";
+import { useDispatch } from "react-redux";
+
 const Chat = () => {
   const socket = useRef();
   const navigate = useNavigate();
@@ -18,7 +21,7 @@ const Chat = () => {
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
   const [loading, setIsLoading] = useState(true);
-
+  const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.user.isAuthenticated);
   const user = useSelector((state) => state.user.user);
   useEffect(() => {
@@ -43,7 +46,17 @@ const Chat = () => {
     const fetchContacts = async () => {
       setIsLoading(true);
       const data = await axios.get(`${allUsersRoute}/${user._id}`);
-      if (data.data.users !== null) setContacts(data.data.users.friends);
+      if (data.data.status) setContacts(data.data.users.friends);
+      else {
+        localStorage.clear();
+        dispatch(
+          userActions.setUser({
+            user: null,
+            isAuthenticated: false,
+          })
+        );
+        navigate("/login");
+      }
       setIsLoading(false);
     };
     if (user) {
